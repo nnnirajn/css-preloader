@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Preloader six</title>
+    <link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+           
+                background-color: #212121;
+                font-family: 'Satisfy', cursive;
+        }
+        
+         /*   start css     */
+        
+        .main{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .box{
+            width: 45px;
+            height: 45px;
+            -webkit-animation: spinner 1.2s infinite ease-in-out;
+            -o-animation: spinner 1.2s infinite ease-in-out;
+            animation: spinner 1.2s infinite ease-in-out;
+            background-color: #fff;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        @keyframes spinner {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+        -ms-transform: perspective(120px) rotateX(0) rotateY(0);
+        -o-transform: perspective(120px) rotateX(0) rotateY(0);
+        transform: perspective(120px) rotateX(0) rotateY(0);
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+        -ms-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+        -o-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+        transform: perspective(120px) rotateX(-180deg) rotateY(0);
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+        -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+        -o-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+    }
+}
+
+    
+        
+        /*   css end  */
+         
+        .hidden {
+          opacity:0;
+        }
+        
+        .console-container {
+          font-size:35px;
+          text-align:center;
+          height:100px;
+          width:800px;
+          display:block;
+        }
+        
+        .console-underscore {
+          display:inline-block;
+          position:relative;
+          top:1px;
+          left:10px;
+          color: #fff;
+        }
+        
+        .name{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    
+    <div class="main">
+           <div class="box"></div>
+    </div>
+
+    
+    
+   <div class="name">
+       <div class='console-container'><span id='text'></span><div class='console-underscore' id='console'>&#95;</div></div>
+   </div>
+     
+    
+      <script>
+         consoleText(['CSS/Jquery Effects...', 'CSS Preloader - six', 'Developed by Niraj Narkhede'], 'text',['#fff','#fff','tomato']);
+
+        function consoleText(words, id, colors) {
+          if (colors === undefined) colors = ['#fff'];
+          var visible = true;
+          var con = document.getElementById('console');
+          var letterCount = 1;
+          var x = 1;
+          var waiting = false;
+          var target = document.getElementById(id)
+          target.setAttribute('style', 'color:' + colors[0])
+          window.setInterval(function() {
+
+            if (letterCount === 0 && waiting === false) {
+              waiting = true;
+              target.innerHTML = words[0].substring(0, letterCount)
+              window.setTimeout(function() {
+                var usedColor = colors.shift();
+                colors.push(usedColor);
+                var usedWord = words.shift();
+                words.push(usedWord);
+                x = 1;
+                target.setAttribute('style', 'color:' + colors[0])
+                letterCount += x;
+                waiting = false;
+              }, 1000)
+            } else if (letterCount === words[0].length + 1 && waiting === false) {
+              waiting = true;
+              window.setTimeout(function() {
+                x = -1;
+                letterCount += x;
+                waiting = false;
+              }, 1000)
+            } else if (waiting === false) {
+              target.innerHTML = words[0].substring(0, letterCount)
+              letterCount += x;
+            }
+          }, 120)
+          window.setInterval(function() {
+            if (visible === true) {
+              con.className = 'console-underscore hidden'
+              visible = false;
+
+            } else {
+              con.className = 'console-underscore'
+
+              visible = true;
+            }
+          }, 400)
+        }
+      </script>
+          
+</body>
+</html>
